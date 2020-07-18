@@ -38,7 +38,7 @@ const mapNoteDistances = (note, i, notes) => {
   return -1;
 };
 
-const input = require('fs').readFileSync('/dev/stdin', 'utf8');
+const input = require('fs').readFileSync('./in.txt', 'utf8'); // .readFileSync('/dev/stdin', 'utf8');
 const lines = input.split('\n');
 let i = 0;
 while (lines[i].trim() !== '0 0') {
@@ -48,6 +48,13 @@ while (lines[i].trim() !== '0 0') {
   const copyDistances = copy.map((note, i) => mapNoteDistances(note, i, copy));
   originalDistances.pop();
   copyDistances.pop();
-  console.log(originalDistances.join('').includes(copyDistances.join('')) ? 'S' : 'N');
+  const originalDistancesString = originalDistances.join('');
+  const copyDistancesString = copyDistances.join('');
+  const isCopy = (
+    originalDistancesString + (
+      originalDistancesString.substring(0, copyDistancesString.length)
+    )
+  ).includes(copyDistancesString);
+  console.log(isCopy ? 'S' : 'N');
   i += 3;
 }
