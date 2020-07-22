@@ -1,0 +1,10 @@
+{
+  "python.linting.pylintEnabled": true,
+  "python.linting.enabled": true,
+  "files.associations": {
+    "utility": "cpp",
+    "xstring": "cpp",
+    "string": "cpp",
+    "iostream": "cpp"
+  }
+}

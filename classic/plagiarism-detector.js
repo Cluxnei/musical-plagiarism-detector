@@ -4,30 +4,28 @@ const notes = [
   ['D'],
   ['D#', 'Eb'],
   ['E', 'Fb'],
-  ['F', 'Eb'],
+  ['F', 'E#'],
   ['F#', 'Gb'],
   ['G'],
   ['G#', 'Ab'],
   ['A'],
   ['A#', 'Bb'],
-  ['B', 'A#'],
+  ['B', 'Cb'],
 ];
 const findDistanceBetweenTwoNotes = (noteA, noteB) => {
+  if (noteA === noteB) {
+    return 0;
+  }
   const noteAIndex = notes.findIndex(n => n.includes(noteA));
-  if (noteAIndex === -1) {
-    return undefined;
-  }
-  let semiTons = 0;
-  for (let i = noteAIndex; i < notes.length; i++) {
+  let semiTons = 0, i = noteAIndex;
+  while(1) {
+    if (i > 11) {
+      i = 0;
+    }
     if (notes[i].includes(noteB)) {
       return semiTons;
     }
-    semiTons++;
-  }
-  for (let i = 0; i < noteAIndex; i++) {
-    if (notes[i].includes(noteB)) {
-      return semiTons;
-    }
+    i++;
     semiTons++;
   }
 };
@@ -37,8 +35,7 @@ const mapNoteDistances = (note, i, notes) => {
   }
   return -1;
 };
-
-const input = require('fs').readFileSync('./in.txt', 'utf8'); // .readFileSync('/dev/stdin', 'utf8');
+const input = require('fs').readFileSync('./1.txt', 'utf8');
 const lines = input.split('\n');
 let i = 0;
 while (lines[i].trim() !== '0 0') {
@@ -50,11 +47,9 @@ while (lines[i].trim() !== '0 0') {
   copyDistances.pop();
   const originalDistancesString = originalDistances.join('');
   const copyDistancesString = copyDistances.join('');
-  const isCopy = (
-    originalDistancesString + (
-      originalDistancesString.substring(0, copyDistancesString.length)
-    )
-  ).includes(copyDistancesString);
+  console.log(originalDistancesString);
+  console.log(copyDistancesString);
+  const isCopy = originalDistancesString.includes(copyDistancesString);
   console.log(isCopy ? 'S' : 'N');
   i += 3;
 }
