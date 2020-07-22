@@ -31,7 +31,13 @@ const findDistanceBetweenTwoNotes = (noteA, noteB) => {
 };
 const mapNoteDistances = (note, i, notes) => {
   if (i + 1 < notes.length) {
-    return findDistanceBetweenTwoNotes(note, notes[i + 1]);
+    let d = findDistanceBetweenTwoNotes(note, notes[i + 1]);
+    if (d === 10) {
+      d = -1;
+    } else if (d === 11) {
+      d = -2;
+    }
+    return d;
   }
   return -1;
 };
@@ -47,8 +53,6 @@ while (lines[i].trim() !== '0 0') {
   copyDistances.pop();
   const originalDistancesString = originalDistances.join('');
   const copyDistancesString = copyDistances.join('');
-  console.log(originalDistancesString);
-  console.log(copyDistancesString);
   const isCopy = originalDistancesString.includes(copyDistancesString);
   console.log(isCopy ? 'S' : 'N');
   i += 3;
